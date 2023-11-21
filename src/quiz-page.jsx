@@ -1,4 +1,4 @@
-import { Button } from "../components/ui/button";
+import { Progress } from "../components/ui/progress";
 export default function QuizPage() {
   const options = [
     { si: "a", option: "html" },
@@ -10,9 +10,9 @@ export default function QuizPage() {
     <section className="min-h-[100dvh] absolute inset-0 bg-[#F1DEDE] grid place-items-center select-none">
       <div className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1rem+1vw)]">
         <div className="flex justify-between text-center mb-8">
-          <div>
+          <div className="space-y-2">
             <p>Questions 1/5</p>
-            <Button>Hi</Button>
+            <Progress className="bg-white" value={20} />
           </div>
           <div>
             <p>Time</p>
