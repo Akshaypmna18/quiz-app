@@ -32,7 +32,10 @@ export default function QuizPage() {
                   key={pos}
                   className="bg-white hover:font-semibold hover:bg-[#f6f6f6] cursor-pointer text-[calc(1.5rem+1vw)]"
                   onClick={() => {
-                    if (item.isAnswer) setScore(score + 1);
+                    if (item.isAnswer) {
+                      setScore(score + 1);
+                      alert("correct answer");
+                    } else alert("wrong answer");
                   }}
                 >
                   <span className="text-white bg-sub capitalize w-[min(15%,3.5rem)] inline-flex items-center justify-center mr-2">
