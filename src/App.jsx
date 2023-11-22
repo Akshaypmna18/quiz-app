@@ -6,7 +6,7 @@ function Home() {
   return (
     <section className="min-h-[100dvh] bg-main flex flex-col items-center justify-center gap-2 font-[poppins] select-none">
       <p className="text-[calc(1rem+0.75vw)] underline font-semibold">Rules</p>
-      <ul className="text-[calc(1rem+0.5vw)] mb-4">
+      <ul className="text-[calc(1rem+0.5vw)] mb-4 px-4 space-y-1">
         <li>You will have only 10 seconds per each question.</li>
         <li>Once you select an answer, it can't be undone.</li>
         <li>You can't select any option once time goes off.</li>

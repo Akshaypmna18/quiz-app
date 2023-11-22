@@ -1,14 +1,16 @@
 import { Progress } from "../components/ui/progress";
+import { useState } from "react";
 export default function QuizPage() {
   const options = [
-    { si: "a", option: "html" },
-    { si: "b", option: "css" },
-    { si: "c", option: "js" },
-    { si: "d", option: "react" },
+    { si: "a", option: "html", isAnswer: false },
+    { si: "b", option: "css", isAnswer: false },
+    { si: "c", option: "js", isAnswer: true },
+    { si: "d", option: "react", isAnswer: false },
   ];
+  const [score, setScore] = useState(0);
   return (
     <section className="min-h-[100dvh] absolute inset-0 bg-main grid place-items-center select-none font-[poppins]">
-      <div className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1rem+1vw)]">
+      <div className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1rem+1vw)] py-8">
         <div className="flex justify-between text-center mb-8">
           <div className="space-y-2">
             <p>Questions 1/5</p>
@@ -29,6 +31,9 @@ export default function QuizPage() {
                 <p
                   key={pos}
                   className="bg-white hover:font-semibold hover:bg-[#f6f6f6] cursor-pointer"
+                  onClick={() => {
+                    if (item.isAnswer) setScore(score + 1);
+                  }}
                 >
                   <span className="text-white bg-sub capitalize w-[min(10%,3rem)] inline-flex items-center justify-center mr-2">
                     {item.si}
