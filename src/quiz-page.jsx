@@ -10,7 +10,7 @@ export default function QuizPage() {
   const [score, setScore] = useState(0);
   return (
     <section className="min-h-[100dvh] absolute inset-0 bg-main grid place-items-center select-none font-[poppins]">
-      <div className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1rem+1vw)] py-8">
+      <div className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1.25rem+1vw)] py-8">
         <div className="flex justify-between text-center mb-8">
           <div className="space-y-2">
             <p>Questions 1/5</p>
@@ -18,7 +18,7 @@ export default function QuizPage() {
           </div>
           <div>
             <p>Time</p>
-            <p className="text-[calc(1.75rem+1vw)] font-bold text-sub">10s</p>
+            <p className="text-[calc(2rem+1vw)] font-bold text-sub">10s</p>
           </div>
         </div>
         <div>
@@ -30,12 +30,12 @@ export default function QuizPage() {
               return (
                 <p
                   key={pos}
-                  className="bg-white hover:font-semibold hover:bg-[#f6f6f6] cursor-pointer"
+                  className="bg-white hover:font-semibold hover:bg-[#f6f6f6] cursor-pointer text-[calc(1.5rem+1vw)]"
                   onClick={() => {
                     if (item.isAnswer) setScore(score + 1);
                   }}
                 >
-                  <span className="text-white bg-sub capitalize w-[min(10%,3rem)] inline-flex items-center justify-center mr-2">
+                  <span className="text-white bg-sub capitalize w-[min(15%,3.5rem)] inline-flex items-center justify-center mr-2">
                     {item.si}
                   </span>
                   {item.option}
