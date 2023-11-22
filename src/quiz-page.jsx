@@ -10,7 +10,7 @@ export default function QuizPage() {
   const [score, setScore] = useState(0);
   return (
     <section className="min-h-[100dvh] absolute inset-0 bg-main grid place-items-center select-none font-[poppins]">
-      <div className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1.25rem+1vw)] py-8">
+      <div className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1.25rem+1vw)] text-[#0D1321] py-8">
         <div className="flex justify-between text-center mb-8">
           <div className="space-y-2">
             <p>Questions 1/5</p>
@@ -22,7 +22,7 @@ export default function QuizPage() {
           </div>
         </div>
         <div>
-          <p className="text-[calc(1.75rem+1vw)] font-bold ">
+          <p className="text-[calc(1.75rem+1vw)] font-bold">
             In web design, what does CSS stand for?
           </p>
           <div className="space-y-2 mt-4">
