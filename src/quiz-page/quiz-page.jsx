@@ -37,16 +37,18 @@ export default function QuizPage() {
 
   // countdown timer
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCountdown(countdown - 1);
-    }, 1000);
-    if (countdown === 0) {
-      clearInterval(interval);
-      setCountdown(10);
-      setNum(num + 1);
+    if (data.length > 0) {
+      const interval = setInterval(() => {
+        setCountdown(countdown - 1);
+      }, 1000);
+      if (countdown === 0) {
+        clearInterval(interval);
+        setCountdown(10);
+        setNum(num + 1);
+      }
+      return () => clearInterval(interval);
     }
-    return () => clearInterval(interval);
-  }, [countdown, num]);
+  }, [countdown, num, data]);
 
   // mutliple choices
   if (num < data.length) {
@@ -55,6 +57,7 @@ export default function QuizPage() {
   }
   // handleClick on multiple choices
   const handleAnswer = (answer) => {
+    setNum(num + 1);
     setCountdown(10);
     if (answer === data[num].correct_answer) setScore(score + 1);
   };
@@ -87,12 +90,9 @@ export default function QuizPage() {
                 {shuffledOptions.map((item, pos) => {
                   return (
                     <p
-                      onClickCapture={() => handleAnswer(item)}
+                      onClick={() => handleAnswer(item)}
                       key={pos}
                       className="bg-white hover:font-semibold hover:bg-[#f6f6f6] cursor-pointer text-[calc(1.5rem+1vw)]"
-                      onClick={() => {
-                        setNum(num + 1);
-                      }}
                     >
                       <span className="text-white bg-sub capitalize w-[min(15%,3.5rem)] inline-flex items-center justify-center mr-2">
                         {pos + 1}

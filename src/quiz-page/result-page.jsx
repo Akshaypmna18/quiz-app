@@ -39,7 +39,7 @@ function ResultPage({
             onClick={() => {
               handleButton("restart");
             }}
-            className="text-[calc(1rem+1vw)] p-[calc(1rem+0.5vw)] bg-sub"
+            className="text-[calc(1rem+1vw)] p-[calc(1rem+0.5vw)] hover:bg-sub"
           >
             Restart
           </Button>
