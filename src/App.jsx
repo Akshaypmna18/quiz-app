@@ -1,5 +1,5 @@
 import { Routes, Route, Link } from "react-router-dom";
-import QuizPage from "./quiz-page";
+import QuizPage from "./quiz-page/quiz-page";
 import { Button } from "../components/ui/button";
 
 function Home() {

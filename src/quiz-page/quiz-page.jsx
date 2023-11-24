@@ -1,13 +1,16 @@
-import { Progress } from "../components/ui/progress";
-import { Button } from "../components/ui/button";
+import { Progress } from "../../components/ui/progress";
 import { useState, useEffect } from "react";
+// import ResultPage from "./result-page";
+import { Button } from "../../components/ui/button";
 import { RotatingLines } from "react-loader-spinner";
+// import Loader from "./loader";
 // import axios from "axios";
 
 export default function QuizPage() {
   const [data, setData] = useState([]);
   const [round, setRound] = useState(0);
   const [countdown, setCountdown] = useState(10);
+  let [num, setNum] = useState(0);
   useEffect(() => {
     fetch(
       "https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple"
@@ -34,31 +37,36 @@ export default function QuizPage() {
     const interval = setInterval(() => {
       setCountdown(countdown - 1);
     }, 1000);
+    if (countdown === 0) {
+      clearInterval(interval);
+      setCountdown(10);
+      setNum(num + 1);
+    }
     return () => clearInterval(interval);
-  }, []);
+  }, [countdown, num]);
 
   const [score, setScore] = useState(0);
-  let [num, setNum] = useState(0);
   let options, shuffledOptions;
   if (num < data.length) {
     options = [...data[num].incorrect_answers, data[num].correct_answer];
     shuffledOptions = options.sort(() => Math.random() - 0.5);
   }
   const handleAnswer = (answer) => {
+    setCountdown(10);
     if (answer === data[num].correct_answer) setScore(score + 1);
   };
 
   if (data.length === 0) {
     return (
-      <div className="min-h-[100dvh]  grid place-items-center">
+      <section className="min-h-[100dvh] grid place-items-center">
         <RotatingLines
           strokeColor="#815355"
           strokeWidth="5"
-          animationDuration="0.75"
+          animationDuration="1"
           width="80"
           visible={true}
         />
-      </div>
+      </section>
     );
   } else {
     if (num < data.length) {
@@ -105,13 +113,26 @@ export default function QuizPage() {
           </div>
         </section>
       );
-    } else {
+    }
+    // <ResultPage
+    //   score={score}
+    //   setNum={setNum}
+    //   setScore={setScore}
+    //   setCountdown={setCountdown}
+    //   setData={setData}
+    //   setRound={setRound}
+    //   round={round}
+    // />;
+    else
       return (
         <section className="min-h-[100dvh] grid place-items-center select-none">
           <div>
             <p className="text-center text-[calc(2rem+1vw)]">
               Your scored
-              <span className="text-sub font-semibold"> {score} points </span>
+              <span className="text-sub font-semibold">
+                {" "}
+                {score} {score < 2 ? "point " : "points "}
+              </span>
               {score >= 4
                 ? "Congrats🎉"
                 : score === 3
@@ -123,14 +144,16 @@ export default function QuizPage() {
                 onClick={() => {
                   setNum(0);
                   setScore(0);
+                  setCountdown(10);
                 }}
-                className="text-[calc(1rem+1vw)] p-[calc(1rem+0.5vw)]"
+                className="text-[calc(1rem+1vw)] p-[calc(1rem+0.5vw)] bg-sub"
               >
                 Restart
               </Button>
               <Button
                 onClick={() => {
                   setNum(0);
+                  setCountdown(10);
                   setScore(0);
                   setData([]);
                   setRound(round + 1);
@@ -144,6 +167,5 @@ export default function QuizPage() {
           </div>
         </section>
       );
-    }
   }
 }
