@@ -1,16 +1,18 @@
 import { Progress } from "../../components/ui/progress";
 import { useState, useEffect } from "react";
-// import ResultPage from "./result-page";
-import { Button } from "../../components/ui/button";
-import { RotatingLines } from "react-loader-spinner";
-// import Loader from "./loader";
+import ResultPage from "./result-page";
+import Loader from "./loader";
 // import axios from "axios";
 
 export default function QuizPage() {
-  const [data, setData] = useState([]);
-  const [round, setRound] = useState(0);
+  const [data, setData] = useState([]); // api data
+  const [round, setRound] = useState(0); // to change current set of questions
   const [countdown, setCountdown] = useState(10);
-  let [num, setNum] = useState(0);
+  let [num, setNum] = useState(0); // question number
+  const [score, setScore] = useState(0);
+  let options, shuffledOptions;
+
+  // api fetching using fetch API
   useEffect(() => {
     fetch(
       "https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple"
@@ -33,6 +35,7 @@ export default function QuizPage() {
     // fetchData();
   }, [round]);
 
+  // countdown timer
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdown(countdown - 1);
@@ -45,29 +48,19 @@ export default function QuizPage() {
     return () => clearInterval(interval);
   }, [countdown, num]);
 
-  const [score, setScore] = useState(0);
-  let options, shuffledOptions;
+  // mutliple choices
   if (num < data.length) {
     options = [...data[num].incorrect_answers, data[num].correct_answer];
     shuffledOptions = options.sort(() => Math.random() - 0.5);
   }
+  // handleClick on multiple choices
   const handleAnswer = (answer) => {
     setCountdown(10);
     if (answer === data[num].correct_answer) setScore(score + 1);
   };
 
   if (data.length === 0) {
-    return (
-      <section className="min-h-[100dvh] grid place-items-center">
-        <RotatingLines
-          strokeColor="#815355"
-          strokeWidth="5"
-          animationDuration="1"
-          width="80"
-          visible={true}
-        />
-      </section>
-    );
+    return <Loader />; // loader until api request is successful
   } else {
     if (num < data.length) {
       return (
@@ -113,59 +106,17 @@ export default function QuizPage() {
           </div>
         </section>
       );
-    }
-    // <ResultPage
-    //   score={score}
-    //   setNum={setNum}
-    //   setScore={setScore}
-    //   setCountdown={setCountdown}
-    //   setData={setData}
-    //   setRound={setRound}
-    //   round={round}
-    // />;
-    else
+    } else
       return (
-        <section className="min-h-[100dvh] grid place-items-center select-none">
-          <div>
-            <p className="text-center text-[calc(2rem+1vw)]">
-              Your scored
-              <span className="text-sub font-semibold">
-                {" "}
-                {score} {score < 2 ? "point " : "points "}
-              </span>
-              {score >= 4
-                ? "Congrats🎉"
-                : score === 3
-                ? "Good game👍"
-                : "Better luck next time🙂"}
-            </p>
-            <div className="flex gap-4 justify-center mt-4">
-              <Button
-                onClick={() => {
-                  setNum(0);
-                  setScore(0);
-                  setCountdown(10);
-                }}
-                className="text-[calc(1rem+1vw)] p-[calc(1rem+0.5vw)] bg-sub"
-              >
-                Restart
-              </Button>
-              <Button
-                onClick={() => {
-                  setNum(0);
-                  setCountdown(10);
-                  setScore(0);
-                  setData([]);
-                  setRound(round + 1);
-                }}
-                variant="outline"
-                className="bg-white text-[calc(1rem+1vw)] p-[calc(1rem+0.5vw)]"
-              >
-                Reset
-              </Button>
-            </div>
-          </div>
-        </section>
+        <ResultPage
+          score={score}
+          setNum={setNum}
+          setScore={setScore}
+          setCountdown={setCountdown}
+          setData={setData}
+          setRound={setRound}
+          round={round}
+        />
       );
   }
 }

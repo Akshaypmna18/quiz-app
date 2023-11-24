@@ -9,6 +9,16 @@ function ResultPage({
   setRound,
   round,
 }) {
+  const handleButton = (type) => {
+    setNum(0);
+    setScore(0);
+    setCountdown(10);
+    if (type == "reset") {
+      setData([]);
+      setRound(round + 1);
+    }
+  };
+
   return (
     <section className="min-h-[100dvh] grid place-items-center select-none">
       <div>
@@ -27,9 +37,7 @@ function ResultPage({
         <div className="flex gap-4 justify-center mt-4">
           <Button
             onClick={() => {
-              setNum(0);
-              setScore(0);
-              setCountdown(10);
+              handleButton("restart");
             }}
             className="text-[calc(1rem+1vw)] p-[calc(1rem+0.5vw)] bg-sub"
           >
@@ -37,11 +45,7 @@ function ResultPage({
           </Button>
           <Button
             onClick={() => {
-              setNum(0);
-              setCountdown(10);
-              setScore(0);
-              setData([]);
-              setRound(round + 1);
+              handleButton("reset");
             }}
             variant="outline"
             className="bg-white text-[calc(1rem+1vw)] p-[calc(1rem+0.5vw)]"
