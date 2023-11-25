@@ -1,6 +1,6 @@
 # A simple Quiz app created using ReactJS
 
-This project was bootstrapped with [Vite React](https://vitejs.dev/guide)).
+This project was bootstrapped with ([Vite React](https://vitejs.dev/guide)).
 </br></br>
 ⭐It is completely responsive. The questions and multiple-choice options are fetched from the Open Trivia Database
 </br>
