@@ -1,5 +1,5 @@
 import { Progress } from "../../components/ui/progress";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import ResultPage from "./result-page";
 import Loader from "./loader";
 // import axios from "axios";
@@ -51,10 +51,12 @@ export default function QuizPage() {
   }, [countdown, num, data]);
 
   // mutliple choices
-  if (num < data.length) {
-    options = [...data[num].incorrect_answers, data[num].correct_answer];
-    shuffledOptions = options.sort(() => Math.random() - 0.5);
-  }
+  shuffledOptions = useMemo(() => {
+    if (num < data.length)
+      return [...data[num].incorrect_answers, data[num].correct_answer].sort(
+        () => Math.random() - 0.5
+      );
+  }, [data, num]);
   // handleClick on multiple choices
   const handleAnswer = (answer) => {
     setNum(num + 1);
