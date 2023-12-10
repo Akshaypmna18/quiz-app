@@ -5,7 +5,13 @@ This project is built with ([Vite React](https://vitejs.dev/guide)).
 ⭐It is completely responsive. The questions and multiple-choice options are fetched from the Open Trivia Database
 </br>
 
-⭐Used Shadcn UI for resusable components and Tailwind CSS for styling
+⭐Used :
+<ul>
+  <li>Zustand for state management</li>
+  <li>Javascript Fetch API to fetch data</li>
+  <li>Shadcn UI for resusable components</li>
+  <li>Tailwind CSS for styling</li> 
+</ul>
 </br>
 
 ⭐Demo Link : https://quiz-app-aks.vercel.app
