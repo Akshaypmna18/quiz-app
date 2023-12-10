@@ -1,18 +1,11 @@
-import { useQuiz } from "../states";
+import { useQuiz } from "../store";
 import { Button } from "./ui/button";
 
-function ResultPage({ setData }) {
-  const { updateRound, reset, score } = useQuiz((state) => ({
-    updateRound: state.updateRound,
-    reset: state.reset,
-    score: state.score,
-  }));
+function ResultPage() {
+  const { updateRoundAndQuestions, reset, score } = useQuiz((state) => state);
   const handleButton = (type) => {
     reset();
-    if (type == "reset") {
-      setData([]);
-      updateRound();
-    }
+    if (type == "reset") updateRoundAndQuestions();
   };
 
   return (

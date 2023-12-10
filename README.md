@@ -6,9 +6,10 @@ This project is built with ([Vite React](https://vitejs.dev/guide)).
 </br>
 
 ⭐Used :
+
 <ul>
   <li>Zustand for state management</li>
-  <li>Javascript Fetch API to fetch data</li>
+  <li>Axios to fetch data</li>
   <li>Shadcn UI for resusable components</li>
   <li>Tailwind CSS for styling</li> 
 </ul>

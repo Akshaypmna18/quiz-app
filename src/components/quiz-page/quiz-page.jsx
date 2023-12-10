@@ -1,11 +1,10 @@
 import { Progress } from "../ui/progress";
-import { useState, useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import ResultPage from "../result-page";
 import Loader from "./loader";
-import { useQuiz } from "../../states";
+import { useQuiz } from "../../store";
 
 export default function QuizPage() {
-  const [data, setData] = useState([]); // api data
   let shuffledOptions;
 
   const {
@@ -16,34 +15,18 @@ export default function QuizPage() {
     countdown,
     setCountdown,
     reset,
-  } = useQuiz((state) => ({
-    updateScore: state.updateScore,
-    updateQNum: state.updateQNum,
-    setCountdown: state.setCountdown,
-    round: state.round,
-    qNum: state.qNum,
-    countdown: state.countdown,
-    reset: state.reset,
-  }));
+    questions,
+    fetchQuestions,
+  } = useQuiz((state) => state);
 
   useEffect(() => {
-    fetch(
-      "https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple"
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((json) => setData(json.results))
-      .catch((error) => console.error("Fetch error:", error));
+    fetchQuestions();
     reset();
   }, [round]);
 
   // countdown timer
   useEffect(() => {
-    if (data.length > 0) {
+    if (questions.length > 0) {
       const interval = setInterval(() => {
         setCountdown(countdown - 1);
       }, 1000);
@@ -54,26 +37,27 @@ export default function QuizPage() {
       }
       return () => clearInterval(interval);
     }
-  }, [countdown, qNum, data]);
+  }, [countdown, qNum, questions]);
 
   // mutliple choices
   shuffledOptions = useMemo(() => {
-    if (qNum < data.length)
-      return [...data[qNum].incorrect_answers, data[qNum].correct_answer].sort(
-        () => Math.random() - 0.5
-      );
-  }, [data, qNum]);
+    if (qNum < questions.length)
+      return [
+        ...questions[qNum].incorrect_answers,
+        questions[qNum].correct_answer,
+      ].sort(() => Math.random() - 0.5);
+  }, [questions, qNum]);
   // handleClick on multiple choices
   const handleOptionClick = (answer) => {
     updateQNum();
     setCountdown(10);
-    if (answer === data[qNum].correct_answer) updateScore();
+    if (answer === questions[qNum].correct_answer) updateScore();
   };
 
-  if (data.length === 0) {
+  if (questions.length === 0) {
     return <Loader />; // loader until api request is successful
   } else {
-    if (qNum < data.length) {
+    if (qNum < questions.length) {
       return (
         <main className="min-h-[100dvh] absolute inset-0  grid place-items-center select-none font-[poppins]">
           <section className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1.25rem+1vw)] text-[#0D1321] py-8">
@@ -92,7 +76,7 @@ export default function QuizPage() {
             <main>
               <p
                 className="text-[calc(1.75rem+1vw)] font-bold"
-                dangerouslySetInnerHTML={{ __html: data[qNum].question }}
+                dangerouslySetInnerHTML={{ __html: questions[qNum].question }}
               />
               <div className="space-y-2 mt-4">
                 {shuffledOptions.map((option, pos) => {
@@ -114,6 +98,6 @@ export default function QuizPage() {
           </section>
         </main>
       );
-    } else return <ResultPage setData={setData} />;
+    } else return <ResultPage />;
   }
 }
