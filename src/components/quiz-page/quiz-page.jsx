@@ -1,18 +1,31 @@
-import { Progress } from "../../components/ui/progress";
+import { Progress } from "../ui/progress";
 import { useState, useEffect, useMemo } from "react";
-import ResultPage from "./result-page";
+import ResultPage from "../result-page";
 import Loader from "./loader";
-// import axios from "axios";
+import { useQuiz } from "../../states";
 
 export default function QuizPage() {
   const [data, setData] = useState([]); // api data
-  const [round, setRound] = useState(0); // to change current set of questions
-  const [countdown, setCountdown] = useState(10);
-  let [num, setNum] = useState(0); // question number
-  const [score, setScore] = useState(0);
-  let options, shuffledOptions;
+  let shuffledOptions;
 
-  // api fetching using fetch API
+  const {
+    updateScore,
+    round,
+    qNum,
+    updateQNum,
+    countdown,
+    setCountdown,
+    reset,
+  } = useQuiz((state) => ({
+    updateScore: state.updateScore,
+    updateQNum: state.updateQNum,
+    setCountdown: state.setCountdown,
+    round: state.round,
+    qNum: state.qNum,
+    countdown: state.countdown,
+    reset: state.reset,
+  }));
+
   useEffect(() => {
     fetch(
       "https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple"
@@ -25,14 +38,7 @@ export default function QuizPage() {
       })
       .then((json) => setData(json.results))
       .catch((error) => console.error("Fetch error:", error));
-    // Axios
-    // const fetchData = async () => {
-    //   const response = await axios.get(
-    //     "https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple"
-    //   );
-    //   setData(response);
-    // };
-    // fetchData();
+    reset();
   }, [round]);
 
   // countdown timer
@@ -44,37 +50,37 @@ export default function QuizPage() {
       if (countdown === 0) {
         clearInterval(interval);
         setCountdown(10);
-        setNum(num + 1);
+        updateQNum();
       }
       return () => clearInterval(interval);
     }
-  }, [countdown, num, data]);
+  }, [countdown, qNum, data]);
 
   // mutliple choices
   shuffledOptions = useMemo(() => {
-    if (num < data.length)
-      return [...data[num].incorrect_answers, data[num].correct_answer].sort(
+    if (qNum < data.length)
+      return [...data[qNum].incorrect_answers, data[qNum].correct_answer].sort(
         () => Math.random() - 0.5
       );
-  }, [data, num]);
+  }, [data, qNum]);
   // handleClick on multiple choices
-  const handleAnswer = (answer) => {
-    setNum(num + 1);
+  const handleOptionClick = (answer) => {
+    updateQNum();
     setCountdown(10);
-    if (answer === data[num].correct_answer) setScore(score + 1);
+    if (answer === data[qNum].correct_answer) updateScore();
   };
 
   if (data.length === 0) {
     return <Loader />; // loader until api request is successful
   } else {
-    if (num < data.length) {
+    if (qNum < data.length) {
       return (
-        <section className="min-h-[100dvh] absolute inset-0  grid place-items-center select-none font-[poppins]">
-          <div className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1.25rem+1vw)] text-[#0D1321] py-8">
-            <div className="flex justify-between text-center mb-8">
+        <main className="min-h-[100dvh] absolute inset-0  grid place-items-center select-none font-[poppins]">
+          <section className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1.25rem+1vw)] text-[#0D1321] py-8">
+            <header className="flex justify-between text-center mb-8">
               <div className="space-y-2">
-                <p>Questions {num + 1}/5</p>
-                <Progress className="bg-[#f6f6f6]" value={(num + 1) * 20} />
+                <p>Questions {qNum + 1}/5</p>
+                <Progress className="bg-[#f6f6f6]" value={(qNum + 1) * 20} />
               </div>
               <div>
                 <p>Time</p>
@@ -82,43 +88,32 @@ export default function QuizPage() {
                   {countdown}s
                 </p>
               </div>
-            </div>
-            <div>
+            </header>
+            <main>
               <p
                 className="text-[calc(1.75rem+1vw)] font-bold"
-                dangerouslySetInnerHTML={{ __html: data[num].question }}
+                dangerouslySetInnerHTML={{ __html: data[qNum].question }}
               />
               <div className="space-y-2 mt-4">
-                {shuffledOptions.map((item, pos) => {
+                {shuffledOptions.map((option, pos) => {
                   return (
                     <p
-                      onClick={() => handleAnswer(item)}
+                      onClick={() => handleOptionClick(option)}
                       key={pos}
                       className="bg-white hover:font-semibold hover:bg-[#f6f6f6] cursor-pointer text-[calc(1.5rem+1vw)]"
                     >
                       <span className="text-white bg-sub capitalize w-[min(15%,3.5rem)] inline-flex items-center justify-center mr-2">
                         {pos + 1}
                       </span>
-                      <span dangerouslySetInnerHTML={{ __html: item }} />
+                      <span dangerouslySetInnerHTML={{ __html: option }} />
                     </p>
                   );
                 })}
               </div>
-            </div>
-          </div>
-        </section>
+            </main>
+          </section>
+        </main>
       );
-    } else
-      return (
-        <ResultPage
-          score={score}
-          setNum={setNum}
-          setScore={setScore}
-          setCountdown={setCountdown}
-          setData={setData}
-          setRound={setRound}
-          round={round}
-        />
-      );
+    } else return <ResultPage setData={setData} />;
   }
 }

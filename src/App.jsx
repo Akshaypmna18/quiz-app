@@ -1,10 +1,10 @@
 import { Routes, Route, Link } from "react-router-dom";
-import QuizPage from "./quiz-page/quiz-page";
-import { Button } from "../components/ui/button";
+import QuizPage from "./components/quiz-page/quiz-page";
+import { Button } from "./components/ui/button";
 
 function Home() {
   return (
-    <section className="min-h-[100dvh] bg-main flex flex-col items-center justify-center gap-2 font-[poppins] select-none text-[#0D1321]">
+    <main className="min-h-[100dvh] bg-main flex flex-col items-center justify-center gap-2 font-[poppins] select-none text-[#0D1321]">
       <p className="text-[calc(1rem+0.75vw)] underline font-semibold">Rules</p>
       <ul className="text-[calc(1rem+0.5vw)] mb-4 ml-4 px-4 space-y-1 list-disc">
         <li>You will have only 10 seconds per each question.</li>
@@ -19,7 +19,7 @@ function Home() {
       >
         <Link to="/quiz-page">Start Quiz</Link>
       </Button>
-    </section>
+    </main>
   );
 }
 

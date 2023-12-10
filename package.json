@@ -21,7 +21,8 @@
     "react-loader-spinner": "^5.4.5",
     "react-router-dom": "^6.18.0",
     "tailwind-merge": "^2.0.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

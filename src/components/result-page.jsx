@@ -1,27 +1,23 @@
-import { Button } from "../../components/ui/button";
+import { useQuiz } from "../states";
+import { Button } from "./ui/button";
 
-function ResultPage({
-  score,
-  setNum,
-  setScore,
-  setCountdown,
-  setData,
-  setRound,
-  round,
-}) {
+function ResultPage({ setData }) {
+  const { updateRound, reset, score } = useQuiz((state) => ({
+    updateRound: state.updateRound,
+    reset: state.reset,
+    score: state.score,
+  }));
   const handleButton = (type) => {
-    setNum(0);
-    setScore(0);
-    setCountdown(10);
+    reset();
     if (type == "reset") {
       setData([]);
-      setRound(round + 1);
+      updateRound();
     }
   };
 
   return (
-    <section className="min-h-[100dvh] grid place-items-center select-none">
-      <div>
+    <main className="min-h-[100dvh] grid place-items-center select-none">
+      <section>
         <p className="text-center text-[calc(2rem+1vw)]">
           Your scored
           <span className="text-sub font-semibold">
@@ -53,8 +49,8 @@ function ResultPage({
             Reset
           </Button>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }
 
