@@ -2,7 +2,11 @@
 
 This project is built with ([Vite React](https://vitejs.dev/guide)).
 </br></br>
-⭐It is completely responsive. The questions and multiple-choice options are fetched from the Open Trivia Database
+⭐It :
+<ul>
+  <li>is completely responsive</li>
+  <li>fetches data from Open Trivia Database</li>
+</ul>
 </br>
 
 ⭐Used :
@@ -16,5 +20,7 @@ This project is built with ([Vite React](https://vitejs.dev/guide)).
 </br>
 
 ⭐Demo Link : https://quiz-app-aks.vercel.app
+</br>
 
-![image](https://github.com/Akshaypmna18/quiz-app/assets/67232475/fce8c5cc-7036-4898-bd50-c068a773773f)
+![Untitled](https://github.com/Akshaypmna18/quiz-app/assets/67232475/abb8fe5b-cfd0-4657-b92c-8cda6c89515f)
+
