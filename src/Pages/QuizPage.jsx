@@ -1,8 +1,8 @@
-import { Progress } from "../../components/ui/progress";
+import { Progress } from "../components/ui/progress";
 import { useEffect, useMemo } from "react";
-import ResultPage from "../Result";
+import ResultPage from "./Result";
 import Loader from "./Loader";
-import { useQuiz } from "../../store";
+import { useQuiz } from "../store";
 
 export default function QuizPage() {
   let shuffledOptions;
@@ -59,8 +59,8 @@ export default function QuizPage() {
   } else {
     if (qNum < questions.length) {
       return (
-        <main className="min-h-[100dvh] absolute inset-0  grid place-items-center select-none font-[poppins]">
-          <section className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1.25rem+1vw)] text-[#0D1321] py-8">
+        <main className="min-h-[100svh] absolute inset-0  grid place-items-center select-none font-[poppins]">
+          <section className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1rem+1vw)] text-[#0D1321] py-8">
             <header className="flex justify-between text-center mb-8">
               <div className="space-y-2">
                 <p>Questions {qNum + 1}/5</p>
@@ -68,14 +68,14 @@ export default function QuizPage() {
               </div>
               <div>
                 <p>Time</p>
-                <p className="text-[calc(2rem+1vw)] font-bold text-sub">
+                <p className="text-[calc(1.75rem+1vw)] font-bold text-sub">
                   {countdown}s
                 </p>
               </div>
             </header>
             <main>
               <p
-                className="text-[calc(1.75rem+1vw)] font-bold"
+                className="text-[calc(1.5rem+1vw)] font-bold"
                 dangerouslySetInnerHTML={{ __html: questions[qNum].question }}
               />
               <div className="space-y-2 mt-4">
@@ -84,9 +84,9 @@ export default function QuizPage() {
                     <p
                       onClick={() => handleOptionClick(option)}
                       key={pos}
-                      className="bg-white hover:font-semibold hover:bg-[#f6f6f6] cursor-pointer text-[calc(1.5rem+1vw)]"
+                      className="bg-white hover:font-semibold hover:bg-[#f6f6f6] cursor-pointer text-[calc(1.25rem+1vw)] flex"
                     >
-                      <span className="text-white bg-sub capitalize w-[min(15%,3.5rem)] inline-flex items-center justify-center mr-2">
+                      <span className="text-white bg-sub capitalize min-w-[15%] max-w-[3.5rem] flex items-center justify-center mr-2">
                         {pos + 1}
                       </span>
                       <span dangerouslySetInnerHTML={{ __html: option }} />

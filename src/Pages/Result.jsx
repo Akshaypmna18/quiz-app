@@ -11,7 +11,7 @@ function ResultPage() {
   return (
     <main className="min-h-[100dvh] grid place-items-center select-none">
       <section>
-        <p className="text-center text-[calc(2rem+1vw)]">
+        <p className="text-center text-[calc(2rem+1vw)] p-4">
           Your scored
           <span className="text-sub font-semibold">
             {" "}

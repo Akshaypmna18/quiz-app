@@ -14,7 +14,7 @@ export default function Home() {
       </ul>
       <Button
         asChild
-        className="bg-sub text-[calc(1.5rem+1vw)] font-semibold tracking-wide uppercase hover:text-white p-6"
+        className="bg-sub text-[calc(1rem+0.5vw)] font-semibold tracking-wide uppercase hover:text-white p-3"
       >
         <Link to="/quiz-page">Start Quiz</Link>
       </Button>
