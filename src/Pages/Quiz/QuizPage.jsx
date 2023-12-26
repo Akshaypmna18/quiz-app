@@ -1,7 +1,7 @@
-import { Progress } from "../ui/progress";
+import { Progress } from "../../components/ui/progress";
 import { useEffect, useMemo } from "react";
-import ResultPage from "../result-page";
-import Loader from "./loader";
+import ResultPage from "../Result";
+import Loader from "./Loader";
 import { useQuiz } from "../../store";
 
 export default function QuizPage() {
