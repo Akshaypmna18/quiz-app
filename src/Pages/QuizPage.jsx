@@ -84,9 +84,9 @@ export default function QuizPage() {
                     <p
                       onClick={() => handleOptionClick(option)}
                       key={pos}
-                      className="bg-white hover:font-semibold hover:bg-[#f6f6f6] cursor-pointer text-[calc(1.25rem+1vw)] flex"
+                      className="bg-white min-[800px]:hover:font-semibold min-[800px]:hover:bg-[#f6f6f6] cursor-pointer text-[calc(1.25rem+1vw)] flex"
                     >
-                      <span className="text-white bg-sub capitalize min-w-[15%] max-w-[3.5rem] flex items-center justify-center mr-2">
+                      <span className="text-white bg-sub capitalize min-w-[15%] min-[500px]:min-w-[10%] flex items-center justify-center mr-2">
                         {pos + 1}
                       </span>
                       <span dangerouslySetInnerHTML={{ __html: option }} />
