@@ -1,5 +1,5 @@
-import { useQuiz } from "../store";
-import { Button } from "../components/ui/button";
+import { useQuiz } from "../../store";
+import { Button } from "../../components/ui/button";
 
 function ResultPage() {
   const { updateRoundAndQuestions, reset, score } = useQuiz((state) => state);

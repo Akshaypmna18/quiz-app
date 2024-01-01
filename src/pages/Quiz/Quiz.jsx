@@ -1,8 +1,8 @@
-import { Progress } from "../components/ui/progress";
+import { Progress } from "../../components/ui/progress";
 import { useEffect, useMemo } from "react";
-import ResultPage from "./Result";
-import Loader from "./Loader";
-import { useQuiz } from "../store";
+import ResultPage from "../Result";
+import Loader from "../Loader";
+import { useQuiz } from "../../store";
 
 export default function QuizPage() {
   let shuffledOptions;

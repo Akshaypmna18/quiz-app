@@ -1,14 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-import QuizPage from "./Pages/QuizPage";
+import Quiz from "./Pages/Quiz";
 import Home from "./Pages/Home";
-import ErrorPage from "./pages/NotFound";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/quiz-page" element={<QuizPage />} />
-      <Route path="/*" element={<ErrorPage />} />
+      <Route path="/quiz-page" element={<Quiz />} />
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 }
