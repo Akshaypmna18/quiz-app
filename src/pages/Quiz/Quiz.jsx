@@ -4,7 +4,7 @@ import ResultPage from "../Result";
 import Loader from "../Loader";
 import { useQuiz } from "../../store";
 
-export default function QuizPage() {
+export default function Quiz() {
   let shuffledOptions;
 
   const {
