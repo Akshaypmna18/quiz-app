@@ -8,7 +8,7 @@ function Loader() {
     "cascading style sheet",
   ];
   return (
-    <section className="min-h-[100svh] relative grid place-items-center select-none font-[poppins]">
+    <section className="h-[100svh] overflow-hidden relative grid place-items-center select-none font-[poppins]">
       <div className="w-[90%] lg:w-[calc(50rem+1vw)] text-[calc(1.25rem+1vw)] text-[#0D1321] py-8">
         <div className="absolute inset-0 min-h-[100dvh] w-screen backdrop-blur-lg grid place-items-center">
           <RotatingLines
