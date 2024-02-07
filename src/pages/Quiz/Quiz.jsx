@@ -20,8 +20,10 @@ export default function Quiz() {
   } = useQuiz((state) => state);
 
   useEffect(() => {
-    fetchQuestions();
+    const controller = new AbortController();
+    fetchQuestions(controller);
     reset();
+    return () => controller.abort;
   }, [round]);
 
   // countdown timer

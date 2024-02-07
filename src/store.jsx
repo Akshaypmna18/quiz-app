@@ -1,16 +1,19 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const fetchQuestions = async (set) => {
+const fetchQuestions = async (set, controller) => {
   const response = await axios.get(
-    "https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple"
+    "https://opentdb.com/api.php?amount=5&category=21&difficulty=easy&type=multiple",
+    {
+      signal: controller.signal,
+    }
   );
   set(() => ({ questions: response.data.results }));
 };
 
 const quiz = (set) => ({
   // fetch questions
-  fetchQuestions: () => fetchQuestions(set),
+  fetchQuestions: (controller) => fetchQuestions(set, controller),
   questions: [],
   // to change current set of questions
   round: 0,
