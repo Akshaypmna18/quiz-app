@@ -18,8 +18,7 @@ const quiz = (set) => ({
   // to change current set of questions
   round: 0,
   updateRoundAndQuestions: () => {
-    set((state) => ({ round: state.round + 1 }));
-    set(() => ({ questions: [] }));
+    set((state) => ({ round: state.round + 1, questions: [] }));
   },
   //   score
   score: 0,
@@ -38,9 +37,11 @@ const quiz = (set) => ({
   },
   //   reset score,num,countdown
   reset: () => {
-    set(() => ({ score: 0 }));
-    set(() => ({ qNum: 0 }));
-    set(() => ({ countdown: 10 }));
+    set(() => ({
+      score: 0,
+      qNum: 0,
+      countdown: 10,
+    }));
   },
 });
 
